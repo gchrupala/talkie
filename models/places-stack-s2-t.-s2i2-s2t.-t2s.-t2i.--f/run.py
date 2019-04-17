@@ -5,7 +5,6 @@ random.seed(seed)
 numpy.random.seed(seed)
 
 import vg.simple_data as sd
-import vg.experiment as E
 import vg.places_provider as dp
 
 import vg.defn.three_way_stack as D
