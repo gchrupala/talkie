@@ -16,5 +16,7 @@ setup(name='talkie',
           'torchvision == 0.2.2.post3',
           'scikit-learn == 0.20.3',
           'SoundFile == 0.10.2',
-          'python-speech-features == 0.6'
+          'python-speech-features == 0.6',
+          'python-Levenshtein == 0.12.0'
+
       ])
