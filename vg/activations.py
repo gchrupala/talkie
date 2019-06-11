@@ -1,7 +1,9 @@
 import numpy as np
 import torch
 import vg.mfcc as C
-
+import onion.util as util
+from vg.simple_data import vector_padder
+    
 def from_audio(model_path, paths, device='cpu'):
     """Return per-layer activation states for audio files stored in paths, from model stored in model_path. 
     The output is a list of arrays of shape (time, layer, feature).
@@ -12,8 +14,6 @@ def from_audio(model_path, paths, device='cpu'):
 
 
 def get_state_stack(net, audios, batch_size=128):
-    import onion.util as util
-    from vg.simple_data import vector_padder
     """Pass audios through the model and for each audio return the state of each timestep and each layer."""
     device = next(net.parameters()).device
     result = []
@@ -44,3 +44,12 @@ def state_stack(net, audio):
         states_top = net.SpeechImage.SpeechEncoderTop.states(states_bot[-1])
     states = torch.cat([states_bot, states_top], dim=0).permute(1, 2, 0, 3) #batch x length x layer x feature
     return states
+
+def embed(net, audios, batch_size=32):
+    """Return utterance embeddings for audio using the given net."""
+    device = next(net.parameters()).device 
+    out = [] 
+    for batch in util.grouper(audios, batch_size): 
+        for result in net.predict(torch.from_numpy(vector_padder(batch)).to(device)).cpu().numpy(): 
+            out.append(result) 
+    return np.stack(out)
