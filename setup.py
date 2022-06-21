@@ -11,7 +11,7 @@ setup(name='talkie',
       packages=['onion','vg', 'vg.defn'],
       zip_safe=False,
       install_requires=[
-          'numpy == 1.16.2',
+          'numpy == 1.22.0',
           'torch == 1.0.1.post2',
           'torchvision == 0.2.2.post3',
           'scikit-learn == 0.20.3',
