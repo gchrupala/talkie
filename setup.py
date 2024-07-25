@@ -12,7 +12,7 @@ setup(name='talkie',
       zip_safe=False,
       install_requires=[
           'numpy == 1.16.2',
-          'torch == 1.0.1.post2',
+          'torch == 2.2.0',
           'torchvision == 0.2.2.post3',
           'scikit-learn == 0.20.3',
           'SoundFile == 0.10.2',
